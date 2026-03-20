@@ -82,11 +82,14 @@
                   homeDirectory = "/home/wali";
                   stateVersion = "25.11";
                 };
+
+                # https://home-manager-options.extranix.com/?query=btop&release=release-25.11
                 programs.mangohud = {
                   enable = true;
                   enableSessionWide = true;
                 };
                 programs.btop.enable = true;
+                
               };
             };
           }

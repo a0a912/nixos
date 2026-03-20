@@ -99,6 +99,8 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+
+    # https://search.nixos.org/options?channel=25.11
     wget
     curl
     nixfmt
