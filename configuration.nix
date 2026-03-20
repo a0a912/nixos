@@ -112,6 +112,7 @@
     floorp-bin
 
     gogdl
+    gnome-disk-utility
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
