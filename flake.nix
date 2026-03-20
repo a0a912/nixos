@@ -77,15 +77,16 @@
               useGlobalPkgs = true;
               useUserPackages = true;
               users.wali = {
-                programs.mangohud = {
-                  enable = true;
-                  enableSessionWide = true;
-                };
                 home = {
                   username = "wali";
                   homeDirectory = "/home/wali";
                   stateVersion = "25.11";
                 };
+                programs.mangohud = {
+                  enable = true;
+                  enableSessionWide = true;
+                };
+                programs.btop.enable = true;
               };
             };
           }
