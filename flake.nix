@@ -56,7 +56,7 @@
           ./configuration.nix
           ./hardware-configuration.nix
 
-          # ./nvidia.nix
+          ./nvidia.nix
 
           {
             programs.steam.enable = true; # https://wiki.nixos.org/wiki/Steam
