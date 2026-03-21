@@ -14,6 +14,8 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  boot.loader.systemd-boot.configurationLimit = 3;
+
   nix.settings.experimental-features = [
     "flakes"
     "nix-command"
@@ -92,6 +94,12 @@
   programs.appimage.enable = true;
 
   virtualisation.virtualbox.host.enable = true;
+
+  services.thermald.enable = true;
+  services.power-profiles-daemon.enable = true;
+  powerManagement.cpuFreqGovernor = "schedutil";
+
+
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;

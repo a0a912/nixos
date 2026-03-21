@@ -11,8 +11,8 @@
     open = false;
     modesetting.enable = true;
     nvidiaSettings = true;
-    powerManagement.enable = false;
-    powerManagement.finegrained = false;
+    powerManagement.enable = true;
+    powerManagement.finegrained = true;
     prime = {
       # Bus IDs from: lspci | grep -E "VGA|3D"
       intelBusId = "PCI:0:2:0";
