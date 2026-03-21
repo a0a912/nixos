@@ -30,14 +30,23 @@
     fsType = "ext4";
   };
 
+  fileSystems."/efi" = {
+  device = "/dev/disk/by-uuid/DC1A-28F7";
+  fsType = "vfat";
+  options = [
+    "fmask=0077"
+    "dmask=0077"
+  ];
+};
+
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/DC1A-28F7";
-    fsType = "vfat";
-    options = [
-      "fmask=0077"
-      "dmask=0077"
-    ];
-  };
+  device = "/dev/disk/by-uuid/119B-2AD3";
+  fsType = "vfat";
+  options = [
+    "fmask=0077"
+    "dmask=0077"
+  ];
+};
 
   swapDevices = [ ];
 
