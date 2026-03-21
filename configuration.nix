@@ -94,7 +94,9 @@
   virtualisation.virtualbox.host.enable = true;
 
   # Allow unfree packages
-  #nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowUnfree = true;
+
+  nixpkgs.config.allowUnfreePackages = [ "spotify" ];
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -104,6 +106,10 @@
     nixfmt
     parted
     aria2
+    spotify
+    discord
+    neofetch
+    fastfetch
 
 
     gnome-disk-utility
