@@ -89,7 +89,7 @@
                   enableSessionWide = true;
                 };
                 programs.btop.enable = true;
-                
+
               };
             };
           }

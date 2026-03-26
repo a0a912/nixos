@@ -102,8 +102,6 @@
   services.power-profiles-daemon.enable = true;
   powerManagement.cpuFreqGovernor = "schedutil";
 
-
-
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -122,10 +120,8 @@
     neofetch
     fastfetch
 
-
     gnome-disk-utility
 
-  
     # --- Base System & Core Utilities ---
     wget
     curl
@@ -134,7 +130,7 @@
     bat
     eza
     btop
-    tldr               # or 'tealdeer' for a fast Rust rewrite
+    tldr # or 'tealdeer' for a fast Rust rewrite
     e2fsprogs
     ethtool
     fakeroot
@@ -151,7 +147,7 @@
     nodejs
     jupyter-all
     nodePackages.eslint
-    vscode             # or 'vscodium' for the telemetry-free version
+    vscode # or 'vscodium' for the telemetry-free version
     sublime
 
     # --- Browsers & Internet ---
@@ -189,7 +185,7 @@
     ghostscript
 
     # --- Documents & Office ---
-    libreoffice-qt6    # or 'libreoffice-fresh'
+    libreoffice-qt6 # or 'libreoffice-fresh'
     abiword
     evince
     pdfarranger
@@ -203,9 +199,9 @@
     timeshift
     caffeine-ng
     hw-probe
-    piper              # Gaming mouse config
-    razergenie         # Requires OpenRazer daemon (see below)
-    cavalier           # Audio visualizer
+    piper # Gaming mouse config
+    razergenie # Requires OpenRazer daemon (see below)
+    cavalier # Audio visualizer
 
     # --- TTS / Voice ---
     espeak-ng
@@ -213,7 +209,7 @@
     # --- Flatpak Fallbacks / AppImages ---
     # AppImages don't work natively on NixOS. If you rely on them, use this:
     appimage-run
-  
+
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
