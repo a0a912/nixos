@@ -121,6 +121,7 @@
     discord
     neofetch
     fastfetch
+    vulkan-tools  # gives you vulkaninfo
 
 
     gnome-disk-utility
