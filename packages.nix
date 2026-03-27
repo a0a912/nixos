@@ -92,6 +92,7 @@
     piper # Gaming mouse config
     razergenie # Requires OpenRazer daemon (see below)
     cavalier # Audio visualizer
+    vulkan-tools
 
     # --- TTS / Voice ---
     espeak-ng
