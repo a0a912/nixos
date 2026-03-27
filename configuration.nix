@@ -2,27 +2,70 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
+  # search nixos options: https://search.nixos.org/options?channel=25.11
+
   imports = [
-    # Include the results of the hardware scan.
-    ./hardware-configuration.nix
+    inputs.nixos-hardware.nixosModules.common-cpu-intel
+    "${inputs.nixos-hardware}/common/cpu/intel/raptor-lake"
   ];
 
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader = {
+    systemd-boot = {
+      enable = true;
+      configurationLimit = 3;
+      xbootldrMountPoint = "/boot";
+    };
+    efi = {
+      canTouchEfiVariables = true;
+      efiSysMountPoint = "/efi";
+    };
+  };
 
-  boot.loader.efi.efiSysMountPoint = "/efi";
-  boot.loader.systemd-boot.xbootldrMountPoint = "/boot";
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  boot.loader.systemd-boot.configurationLimit = 3;
+  services.fwupd.enable = true;
 
-  nix.settings.experimental-features = [
-    "flakes"
-    "nix-command"
-  ];
+  # `services.desktopManager.plasma6.enable = true;` enables upower and power-profiles-daemon
+  services.thermald.enable = true;
+  powerManagement.cpuFreqGovernor = "schedutil";
+
+  nix = {
+    channel.enable = false;
+    optimise.automatic = true;
+    gc.automatic = true;
+    settings = {
+      experimental-features = [
+        "flakes"
+        "nix-command"
+      ];
+    };
+  };
+
+  nixpkgs.config.allowUnfree = true;
+
+  programs.steam.enable = true; # https://wiki.nixos.org/wiki/Steam
+  hardware.xone.enable = true; # driver for Xbox accessories
+  programs.gamemode = {
+    enable = true;
+    enableRenice = true;
+  };
+
+  services.flatpak.enable = true;
+  programs.appimage.enable = true;
+
+  programs.kdeconnect.enable = true;
+
+  # programs.wireshark.enable = true;
+
+  # virtualisation.docker.enable = true;
+  virtualisation.virtualbox.host.enable = true;
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -46,7 +89,7 @@
 
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
+  services.desktopManager.plasma6.enable = true; # https://github.com/NixOS/nixpkgs/blob/nixos-25.11/nixos/modules/services/desktop-managers/plasma6.nix
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -92,130 +135,6 @@
 
   # Install firefox.
   programs.firefox.enable = true;
-
-  services.flatpak.enable = true;
-  programs.appimage.enable = true;
-
-  virtualisation.virtualbox.host.enable = true;
-
-  services.thermald.enable = true;
-  services.power-profiles-daemon.enable = true;
-  powerManagement.cpuFreqGovernor = "schedutil";
-
-
-
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
-  nixpkgs.config.allowUnfreePackages = [ "spotify" ];
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-
-    # https://search.nixos.org/options?channel=25.11
-    nixfmt
-    parted
-    aria2
-    spotify
-    discord
-    neofetch
-    fastfetch
-    vulkan-tools  # gives you vulkaninfo
-
-
-    gnome-disk-utility
-
-  
-    # --- Base System & Core Utilities ---
-    wget
-    curl
-    git
-    gh
-    bat
-    eza
-    btop
-    tldr               # or 'tealdeer' for a fast Rust rewrite
-    e2fsprogs
-    ethtool
-    fakeroot
-    vim
-
-    # --- Nix Formatter ---
-    #nixfmt-rfc-style   # Modern standard nix formatter
-
-    # --- Development & Languages ---
-    clang
-    cmake
-    gnumake
-    python3
-    nodejs
-    jupyter-all
-    nodePackages.eslint
-    vscode             # or 'vscodium' for the telemetry-free version
-    sublime
-
-    # --- Browsers & Internet ---
-    floorp-bin
-    brave
-    firefox
-    librewolf
-    filezilla
-    rclone
-    rclone-browser
-    transmission_4-gtk # or 'transmission_4-qt'
-    deluge
-
-    # --- Gaming & Emulation ---
-    heroic-unwrapped
-    lutris-unwrapped
-    bottles
-    protonup-qt
-    protontricks
-    protonplus
-    gogdl
-    pcsx2
-    duckstation
-    ppsspp
-    melonDS
-    desmume
-    vbam
-
-    # --- Audio, Video & Graphics ---
-    ffmpeg
-    vlc
-    audacity
-    audacious
-    ocrmypdf
-    ghostscript
-
-    # --- Documents & Office ---
-    libreoffice-qt6    # or 'libreoffice-fresh'
-    abiword
-    evince
-    pdfarranger
-    foliate
-    pdfgrep
-    enscript
-
-    # --- Utilities & Tools ---
-    bitwarden-desktop
-    bleachbit
-    timeshift
-    caffeine-ng
-    hw-probe
-    piper              # Gaming mouse config
-    razergenie         # Requires OpenRazer daemon (see below)
-    cavalier           # Audio visualizer
-
-    # --- TTS / Voice ---
-    espeak-ng
-
-    # --- Flatpak Fallbacks / AppImages ---
-    # AppImages don't work natively on NixOS. If you rely on them, use this:
-    appimage-run
-  
-  ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
