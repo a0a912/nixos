@@ -4,6 +4,12 @@
     inputs.nixos-hardware.nixosModules.common-gpu-nvidia
   ];
 
+  # https://wiki.nixos.org/wiki/CUDA#Setting_up_CUDA_Binary_Cache
+  nix.settings = {
+    extra-substituters = [ "https://cache.nixos-cuda.org" ];
+    extra-trusted-public-keys = [ "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M=" ];
+  };
+
   hardware.graphics.enable32Bit = true;
 
   # NVIDIA PRIME configuration for hybrid graphics
